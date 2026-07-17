@@ -1,5 +1,3 @@
-version: "3"
-
 networks:
   laravel:
 
@@ -16,7 +14,6 @@ services:
     depends_on:
       - php
       - pgsql
-      # - mysql
     networks:
       - laravel
 
@@ -29,7 +26,7 @@ services:
         - PHP_VARIANTE=${APP_PHP_VARIANTE}
     container_name: php
     volumes:
-      - ${APP_VOLUMEN_PATH}:/var/www/html:delegated
+      - ${APP_VOLUMEN_PATH}:/var/www/html
     ports:
       - "9000:9000"
     networks:
@@ -51,19 +48,19 @@ services:
     networks:
       - laravel
 
-  npm:
+  vite:
     build:
       context: .
       dockerfile: Dockerfile.frontend
-      args: 
+      args:
         - NODE_VERSION=${NPM_NODE_VERSION}
         - NODE_VARIANTE=${NPM_NODE_VARIANTE}
-    container_name: npm
+    container_name: vite
     ports:
       - "${NPM_PORT}:${NPM_PORT_CONTAINER}"
     volumes:
       - ${NPM_VOLUMEN_PATH}:/app
-    user: 1000:1000
+    user: "1000:1000"
     networks:
       - laravel
 
@@ -76,55 +73,26 @@ services:
         - PHP_VARIANTE=${APP_PHP_VARIANTE}
     container_name: artisan
     volumes:
-      - ${APP_VOLUMEN_PATH}:/var/www/html:delegated
+      - ${APP_VOLUMEN_PATH}:/var/www/html
     depends_on:
       - pgsql
-      # - mysql
     working_dir: /var/www/html
     user: laravel
     entrypoint: ["php", "/var/www/html/artisan"]
     networks:
       - laravel
 
-### PostgreSQL ###########################################
   pgsql:
-    build:
-      context: ./postgres
-      args:
-        - POSTGRES_VERSION=${POSTGRES_VERSION}
-        - POSTGRES_DB=${POSTGRES_DB}
-        - POSTGRES_USER=${POSTGRES_USER}
-        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    image: postgres:${POSTGRES_VERSION}
     container_name: pgsql
     restart: unless-stopped
-    tty: true
-    volumes:
-      - ${POSTGRES_VOLUMEN_PATH}:/var/lib/postgresql/data
-      # - ${POSTGRES_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "${POSTGRES_PORT}:5432"
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - ${POSTGRES_VOLUMEN_PATH}:/var/lib/postgresql/data
     networks:
       - laravel
-### MySql  ################################################
-  # mysql:
-  #   image: mysql:${MYSQL_VERSION}
-  #   container_name: mysql
-  #   restart: unless-stopped
-  #   tty: true
-  #   ports:
-  #     - "${MYSQL_PORT}:${MYSQL_PORT_CONTAINER}"
-  #   volumes:
-  #     - ${MYSQL_VOLUMEN_PATH}:/var/lib/mysql
-  #   environment:
-  #     MYSQL_DATABASE: ${MYSQL_DATABASE}
-  #     MYSQL_USER: ${MYSQL_USER}
-  #     MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-  #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-  #     SERVICE_NAME: ${MYSQL_SERVICE_NAME}
-  #     SERVICE_TAGS: ${MYSQL_SERVICE_TAGS}
-  #   networks:
-  #     - laravel

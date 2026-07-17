@@ -2,7 +2,7 @@ ARG PHP_VERSION
 ARG PHP_VARIANTE
 FROM php:${PHP_VERSION}-${PHP_VARIANTE}
 LABEL maintainer="tzalejo@gmail.com"
-LABEL version="1.1"
+LABEL version="2.0"
 ADD ./php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 RUN addgroup -g 1000 laravel && adduser -G laravel -g laravel -s /bin/sh -D laravel
@@ -13,8 +13,6 @@ RUN chown laravel:laravel /var/www/html
 
 WORKDIR /var/www/html
 
-# Install dev dependencies
-# RUN apk add --no-cache --virtual .build-deps curl-dev sqlite-dev 
 RUN set -e; \
          apk add --no-cache \
                 coreutils \
@@ -27,15 +25,11 @@ RUN set -e; \
                 icu-dev \
                 zlib-dev \
                 curl-dev \
-                imap-dev \
                 libxslt-dev libxml2-dev \
                 postgresql-dev \
-                libgcrypt-dev \
                 oniguruma-dev \
                 sqlite-dev
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-configure intl
-RUN docker-php-ext-configure imap
-# Install php extensions
-RUN docker-php-ext-install curl pdo pdo_mysql pdo_sqlite exif gd pgsql pdo_pgsql
+RUN docker-php-ext-install curl pdo pdo_pgsql pdo_sqlite exif gd intl zip

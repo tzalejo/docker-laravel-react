@@ -1,12 +1,8 @@
-ARG NODE_VERSION 
+ARG NODE_VERSION
 ARG NODE_VARIANTE
 FROM node:${NODE_VERSION}-${NODE_VARIANTE}
 LABEL maintainer="tzalejo@gmail.com"
-LABEL version="1.1"
-RUN npm install -g @angular/cli && npm cache clean --force
+LABEL version="2.0"
 WORKDIR /app
-# COPY frontend/package.json frontend/package-lock.json ./
-# RUN npm install
 EXPOSE ${NPM_PORT_CONTAINER}
-COPY frontend/ .
-CMD [ "ng", "serve","--host", "0.0.0.0" ]
+CMD [ "npm", "run", "dev", "--", "--host", "0.0.0.0" ]
