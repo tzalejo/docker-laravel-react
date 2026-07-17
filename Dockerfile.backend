@@ -32,4 +32,4 @@ RUN set -e; \
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-configure intl
-RUN docker-php-ext-install curl pdo pdo_pgsql pdo_sqlite exif gd intl zip
+RUN docker-php-ext-install curl pdo pdo_pgsql pdo_sqlite exif gd intl zip bcmath
