@@ -5,33 +5,25 @@
   "main": "index.js",
   "scripts": {
     "dcbuild":"docker-compose build && docker-compose up",
-    "dcdestruir":"docker-compose down && sudo rm -rf mysql/",
+    "dcdestruir":"docker-compose down && sudo rm -rf data/",
     "chmod-backend":"docker-compose exec php chmod -R gu+w . && docker-compose exec php chmod -R guo+w .",
-    "chmod-frontend":"docker-compose exec npm chmod -R gu+w . && docker-compose exec npm chmod -R guo+w .",
+    "chmod-frontend":"docker-compose exec vite chmod -R gu+w . && docker-compose exec vite chmod -R guo+w .",
     "chmods":"npm run chmod-backend && npm run chmod-frontend",
 
     "install-dependencies": "npm run install-dependencies-front && npm run install-dependencies-back",
-    "install-dependencies-front": "cd frontend && npm i",
-    "install-dependencies-back": "cd backend && composer install",
-    
-    "start:front": "npm run install-dependencies-front && cd frontend && npm start",
-    "build:front": "cd frontend && npm run build",
-    
-    "start:back": "npm run install-dependencies-back && cd backend && php artisan serve",
-    
-    "test": "docker-compose exec php php artisan test",
+    "install-dependencies-front": "docker-compose run --rm vite npm install",
+    "install-dependencies-back": "docker-compose run --rm composer install",
 
-    "postinstall": "ng build --aot --prod",
-    "heroku-postbuild": "ng build --prod"
+    "test": "docker-compose exec php php artisan test"
   },
   "keywords": [
-    "angular",
+    "react",
     "laravel",
     "php",
     "docker",
     "typescript",
     "cec",
-    "mysql"
+    "postgres"
   ],
   "author": "Alejandro Valenzuela",
   "license": "MIT"
