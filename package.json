@@ -1,25 +1,25 @@
 {
   "name": "cec",
   "version": "1.0.0",
-  "description": "Una aplicacion para gestion cursos, realizado con react y laravel",
+  "description": "Una aplicacion para gestion cursos, realizado con angular y laravel",
   "main": "index.js",
   "scripts": {
-    "dcbuild": "docker-compose up -d --build",
-    "dcdestruir": "docker-compose down && sudo rm -rf data/",
-    "chmod-backend": "docker-compose exec php chmod -R gu+w . && docker-compose exec php chmod -R guo+w .",
-    "chmod-frontend": "docker-compose exec vite chmod -R gu+w . && docker-compose exec vite chmod -R guo+w .",
+    "dcbuild": "docker compose up -d --build",
+    "dcdestruir": "docker compose down && sudo rm -rf data/",
+    "chmod-backend": "docker compose exec php chmod -R gu+w . && docker compose exec php chmod -R guo+w .",
+    "chmod-frontend": "docker compose exec vite chmod -R gu+w . && docker compose exec vite chmod -R guo+w .",
     "chmods": "npm run chmod-backend && npm run chmod-frontend",
 
     "install-dependencies": "npm run install-dependencies-front && npm run install-dependencies-back",
-    "install-dependencies-front": "docker-compose run --rm vite npm install",
-    "install-dependencies-back": "docker-compose run --rm composer install",
+    "install-dependencies-front": "docker compose run --rm vite npm install",
+    "install-dependencies-back": "docker compose run --rm composer install",
 
-    "test": "docker-compose exec php php artisan test",
+    "test": "docker compose exec php php artisan test",
 
-    "migrate": "docker-compose exec php php artisan migrate",
-    "seed": "docker-compose exec php php artisan db:seed",
-    "seed-demo": "docker-compose exec php php artisan db:seed --class=DemoDataSeeder",
-    "migrate-seed": "docker-compose exec php php artisan migrate --seed"
+    "migrate": "docker compose exec php php artisan migrate",
+    "seed": "docker compose exec php php artisan db:seed",
+    "seed-demo": "docker compose exec php php artisan db:seed --class=DemoDataSeeder",
+    "migrate-seed": "docker compose exec php php artisan migrate --seed"
   },
   "keywords": [
     "react",
