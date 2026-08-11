@@ -40,6 +40,8 @@ Con esto ya estaria para continuar creando los proyectos de Laravel y frontend. 
 - `pgsql - :${POSTGRES_PORT}`
 - `php - :9000`
 - `vite - :${NPM_PORT}`
+- `cron` - ejecuta `php artisan schedule:run` cada minuto
+- `supervisor-worker` - corre los queue workers definidos en `php-worker/supervisord.d/`
 
 ## Comando adicionales:
 
