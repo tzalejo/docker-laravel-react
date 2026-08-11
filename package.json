@@ -14,7 +14,12 @@
     "install-dependencies-front": "docker compose run --rm vite npm install",
     "install-dependencies-back": "docker compose run --rm composer install",
 
-    "test": "docker compose exec php php artisan test"
+    "test": "docker compose exec php php artisan test",
+
+    "migrate": "docker compose exec php php artisan migrate",
+    "seed": "docker compose exec php php artisan db:seed",
+    "seed-demo": "docker compose exec php php artisan db:seed --class=DemoDataSeeder",
+    "migrate-seed": "docker compose exec php php artisan migrate --seed"
   },
   "keywords": [
     "react",
@@ -23,7 +28,8 @@
     "docker",
     "typescript",
     "postgres",
-    "postgresql"
+    "sql",
+    "javascript"
   ],
   "author": "Alejandro Valenzuela",
   "license": "MIT"
