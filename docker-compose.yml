@@ -82,6 +82,38 @@ services:
     networks:
       - laravel
 
+  cron:
+    build:
+      context: .
+      dockerfile: cron.dockerfile
+      args:
+        - APP_PHP_VERSION
+        - APP_PHP_VARIANTE
+    container_name: cron
+    volumes:
+      - ${APP_VOLUMEN_PATH}:/var/www/html
+    depends_on:
+      - pgsql
+    networks:
+      - laravel
+
+  supervisor-worker:
+    build:
+      context: .
+      dockerfile: worker.dockerfile
+      args:
+        - APP_PHP_VERSION
+        - APP_PHP_VARIANTE
+    container_name: supervisor-worker
+    depends_on:
+      - pgsql
+    entrypoint: ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
+    volumes:
+      - ${APP_VOLUMEN_PATH}:/var/www/html:delegated
+      - ./php-worker/supervisord.d:/etc/supervisord.d
+    networks:
+      - laravel
+
   pgsql:
     image: postgres:${POSTGRES_VERSION}
     container_name: pgsql

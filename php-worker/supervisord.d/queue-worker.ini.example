@@ -1,0 +1,10 @@
+[program:queue-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/html/artisan queue:work --sleep=3 --tries=3 --max-time=3600
+directory=/var/www/html
+autostart=true
+autorestart=true
+numprocs=1
+user=laravel
+stdout_logfile=/var/www/html/storage/logs/worker.log
+stdout_logfile_maxbytes=0
