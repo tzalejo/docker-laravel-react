@@ -1,6 +1,6 @@
-ARG PHP_VERSION
-ARG PHP_VARIANTE
-FROM php:${PHP_VERSION}-${PHP_VARIANTE}
+ARG APP_PHP_VERSION=8.4
+ARG APP_PHP_VARIANTE=fpm-alpine
+FROM php:${APP_PHP_VERSION}-${APP_PHP_VARIANTE}
 LABEL maintainer="tzalejo@gmail.com"
 LABEL version="2.0"
 ADD ./php/www.conf /usr/local/etc/php-fpm.d/www.conf

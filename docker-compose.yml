@@ -22,8 +22,8 @@ services:
       context: .
       dockerfile: Dockerfile.backend
       args:
-        - PHP_VERSION=${APP_PHP_VERSION}
-        - PHP_VARIANTE=${APP_PHP_VARIANTE}
+        - APP_PHP_VERSION
+        - APP_PHP_VARIANTE
     container_name: php
     volumes:
       - ${APP_VOLUMEN_PATH}:/var/www/html
@@ -53,8 +53,8 @@ services:
       context: .
       dockerfile: Dockerfile.frontend
       args:
-        - NODE_VERSION=${NPM_NODE_VERSION}
-        - NODE_VARIANTE=${NPM_NODE_VARIANTE}
+        - NPM_NODE_VERSION
+        - NPM_NODE_VARIANTE
     container_name: vite
     ports:
       - "${NPM_PORT}:${NPM_PORT_CONTAINER}"
@@ -69,8 +69,8 @@ services:
       context: .
       dockerfile: Dockerfile.backend
       args:
-        - PHP_VERSION=${APP_PHP_VERSION}
-        - PHP_VARIANTE=${APP_PHP_VARIANTE}
+        - APP_PHP_VERSION
+        - APP_PHP_VARIANTE
     container_name: artisan
     volumes:
       - ${APP_VOLUMEN_PATH}:/var/www/html
