@@ -4,6 +4,8 @@ FROM php:${APP_PHP_VERSION}-${APP_PHP_VARIANTE}
 LABEL maintainer="tzalejo@gmail.com"
 LABEL version="2.0"
 ADD ./php/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY ./php/docker-entrypoint-storage-link.sh /usr/local/bin/docker-entrypoint-storage-link.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint-storage-link.sh
 
 RUN addgroup -g 1000 laravel && adduser -G laravel -g laravel -s /bin/sh -D laravel
 
@@ -33,3 +35,6 @@ RUN set -e; \
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install curl pdo pdo_pgsql pdo_sqlite exif gd intl zip bcmath
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint-storage-link.sh"]
+CMD ["php-fpm"]

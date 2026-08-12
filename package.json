@@ -1,7 +1,7 @@
 {
   "name": "cec",
   "version": "1.0.0",
-  "description": "Una aplicacion para gestion cursos, realizado con angular y laravel",
+  "description": "Una aplicacion para gestion cursos, realizado con react y laravel",
   "main": "index.js",
   "scripts": {
     "dcbuild": "docker compose up -d --build",
@@ -19,7 +19,7 @@
     "migrate": "docker compose exec php php artisan migrate",
     "seed": "docker compose exec php php artisan db:seed",
     "seed-demo": "docker compose exec php php artisan db:seed --class=DemoDataSeeder",
-    "migrate-seed": "docker compose exec php php artisan migrate --seed"
+    "refresh-seed": "docker compose exec php php artisan migrate:refresh --seed"
   },
   "keywords": [
     "react",
