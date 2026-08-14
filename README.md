@@ -1,9 +1,11 @@
 # Docker Laravel y React (Vite)
 
 ## Definir las variables de entorno
+
 Copiar `.env-ejemplo` a `.env` y completar las variables. La base de datos es Postgres (unica BD soportada). Las variables de backend indican la version de PHP y Composer (tener en cuenta la version de Laravel a usar) y las de frontend la version de Node.
 
 ### Variable de base de datos: Postgres
+
 - `POSTGRES_VERSION=`
 - `POSTGRES_DB=`
 - `POSTGRES_USER=`
@@ -13,6 +15,7 @@ Copiar `.env-ejemplo` a `.env` y completar las variables. La base de datos es Po
 - `POSTGRES_VOLUMEN_PATH=`
 
 ### Variable Backend (Laravel)
+
 - `APP_VOLUMEN_PATH=`
 - `APP_PORT=`
 - `APP_PHP_VERSION=8.4`
@@ -20,6 +23,7 @@ Copiar `.env-ejemplo` a `.env` y completar las variables. La base de datos es Po
 - `COMPOSER_VERSION=2`
 
 ### Variable Frontend (Vite)
+
 - `NPM_VOLUMEN_PATH=`
 - `NPM_PORT=`
 - `NPM_PORT_CONTAINER=`
@@ -27,10 +31,12 @@ Copiar `.env-ejemplo` a `.env` y completar las variables. La base de datos es Po
 - `NPM_NODE_VARIANTE=alpine`
 
 Una vez definidas todas las variables de entorno, debemos crear el entorno con el comando:
+
 - `docker-compose up -d --build`
-Con esto ya estaria para continuar creando los proyectos de Laravel y frontend. Hay dos contenedores, `artisan` y `composer`, que utilizamos para ejecutar comandos.
+  Con esto ya estaria para continuar creando los proyectos de Laravel y frontend. Hay dos contenedores, `artisan` y `composer`, que utilizamos para ejecutar comandos.
 
 ## Crear proyecto laravel
+
 - `docker-compose run --rm composer create-project --prefer-dist laravel/laravel .`
 - `docker-compose run --rm composer create-project --prefer-dist laravel/laravel:^11.0 .` Si quiero especificar una version
 
@@ -58,5 +64,6 @@ Con esto ya estaria para continuar creando los proyectos de Laravel y frontend. 
 - `./ngrok http --host-header=rewrite APP_PORT`
 
 # Donaciones
-- BTC: bc1q4je0jjmycfrfum4cgut48qdprvm02ahfshwwga
-- ETH: 0x4804c6B390fC55BB6E6684216D1aDeD6B83e1198
+
+- BTC(btc):15E23WHzmvE3LuKrhbCKcxECdcdivejLWb
+- ETH(BEP-20): 0x92e9a9301a8f24279f9ad7634e7f63f0f366fa36
