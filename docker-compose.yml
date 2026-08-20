@@ -105,9 +105,11 @@ services:
         - APP_PHP_VERSION
         - APP_PHP_VARIANTE
     container_name: supervisor-worker
+    restart: unless-stopped
     depends_on:
       - pgsql
-    entrypoint: ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
+    entrypoint: ["/usr/local/bin/docker-entrypoint-fix-storage-perms.sh"]
+    command: ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
     volumes:
       - ${APP_VOLUMEN_PATH}:/var/www/html:delegated
       - ./php-worker/supervisord.d:/etc/supervisord.d

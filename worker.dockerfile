@@ -27,6 +27,7 @@ RUN set -e; \
                 curl-dev \
                 libxslt-dev libxml2-dev \
                 postgresql-dev \
+                postgresql16-client \
                 oniguruma-dev \
                 sqlite-dev \
                 supervisor
@@ -36,3 +37,7 @@ RUN docker-php-ext-configure intl
 RUN docker-php-ext-install curl pdo pdo_pgsql pdo_sqlite exif gd intl zip bcmath
 
 COPY supervisord.conf /etc/supervisord.conf
+COPY ./php-worker/docker-entrypoint-fix-storage-perms.sh /usr/local/bin/docker-entrypoint-fix-storage-perms.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint-fix-storage-perms.sh
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint-fix-storage-perms.sh"]
