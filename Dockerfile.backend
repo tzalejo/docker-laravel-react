@@ -29,6 +29,7 @@ RUN set -e; \
                 curl-dev \
                 libxslt-dev libxml2-dev \
                 postgresql-dev \
+                postgresql16-client \
                 oniguruma-dev \
                 sqlite-dev
 
